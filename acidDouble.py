@@ -3,8 +3,8 @@ from sympy import symbols,Eq,nsolve,solve,re
 import numpy
 from numpy import log10
 
-Ka1 = 1.75e-05
-Ka2 = 1.75e-5
+Ka1 = 1.5e-5
+Ka2 = 1.5e-4
 Kw = 1e-14
 
 cNaOH0 = 0.1
@@ -71,4 +71,4 @@ import matplotlib
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots()
 ax.plot(VNaOH0_list,pH_list)
-fig.savefig("test.png")
+fig.savefig("result.png")
