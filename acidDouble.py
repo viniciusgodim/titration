@@ -4,20 +4,20 @@ import numpy
 from numpy import log10
 
 Ka1 = 1.75e-05
-Ka2 = 0
+Ka2 = 1.75e-5
 Kw = 1e-14
 
 cNaOH0 = 0.1
 cHA10 = 0.1
-cHA20 = 0
+cHA20 = 0.1
 VHA0 = 25/1000
-cA10 = 0
-cA20 = 0
 
 VNaOH0_range = numpy.linspace(0,50/1000,100)
 
 pH_list = []
 VNaOH0_list = []
+
+t = 0
 
 for VNaOH0 in VNaOH0_range:
     z = cNaOH0*VNaOH0/(VNaOH0+VHA0)
@@ -43,8 +43,6 @@ for VNaOH0 in VNaOH0_range:
 
     x2sol = solve(water.subs(y,yf1).subs(x1,x1f),x2)
 
-    t = 0
-
     for x2i in x2sol:
         x1i = re(x1f.subs(x2,x2i))
         yi = re(yf1.subs(x1,x1i).subs(x2,x2i))
@@ -63,12 +61,6 @@ for VNaOH0 in VNaOH0_range:
             OH = OHi
             t = t + 1
     print(t)
-    #solution = nsolve((water,acid),(x,y),((Ka*cHA)**.5,-1e-7))
-
-    #HA = HA.subs(x,solution[0]).subs(y,solution[1])
-    #A = A.subs(x,solution[0]).subs(y,solution[1])
-    #H3O = H3O.subs(x,solution[0]).subs(y,solution[1])
-    #OH = OH.subs(x,solution[0]).subs(y,solution[1])
 
     pH = -log10(float(H3O))
 
