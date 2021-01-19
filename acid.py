@@ -3,14 +3,14 @@ from sympy import symbols,Eq,nsolve,solve,re
 import numpy
 from numpy import log10
 
-Ka = 2E-05
+Ka = 7.1e-4
 Kw = 1e-14
 
 cNaOH0 = 0.1
-cHA0 = 0.1
-cA0 = 0.05
+cHA0 = 2
+cA0 = 0
 
-VHA0 = 25/1000
+VHA0 = 100/1000
 
 VNaOH0_range = numpy.linspace(0,50/1000,100)
 
@@ -35,8 +35,6 @@ for VNaOH0 in VNaOH0_range:
     xsol = solve(water.subs(y,yf),x)
     ysol = [yf.subs(x,xi) for xi in xsol]
 
-    t = 0
-
     for xi in xsol:
         for yi in ysol:
             HAi = re(cHA - xi)
@@ -48,13 +46,11 @@ for VNaOH0 in VNaOH0_range:
                 A = Ai
                 H3O = H3Oi
                 OH = OHi
-                t = 1
-    print(t)
-    #solution = nsolve((water,acid),(x,y),((Ka*cHA)**.5,-1e-7))
+    solution = nsolve((water,acid),(x,y),((Ka*cHA)**.5,-1e-7))
 
     #HA = HA.subs(x,solution[0]).subs(y,solution[1])
     #A = A.subs(x,solution[0]).subs(y,solution[1])
-    #H3O = H3O.subs(x,solution[0]).subs(y,solution[1])
+    H3O = H3O.subs(x,solution[0]).subs(y,solution[1])
     #OH = OH.subs(x,solution[0]).subs(y,solution[1])
 
     pH = -log10(float(H3O))
